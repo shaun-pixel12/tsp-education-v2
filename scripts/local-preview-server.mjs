@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const webRoot = path.resolve(__dirname, '../web');
 
 const PORT = Number(process.env.PORT || 5000);
 
@@ -20,20 +21,18 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  console.log(`${req.method} ${req.url}`);
-  
   const requestPath = decodeURIComponent(req.url === '/' ? '/index.html' : req.url.split('?')[0]);
-  const filePath = path.join(__dirname, requestPath);
+  const filePath = path.join(webRoot, requestPath);
 
-  if (!filePath.startsWith(__dirname)) {
+  if (!filePath.startsWith(webRoot)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('Forbidden');
     return;
   }
-  
+
   const extname = String(path.extname(filePath)).toLowerCase();
   const contentType = MIME_TYPES[extname] || 'application/octet-stream';
-  
+
   fs.readFile(filePath, (error, content) => {
     if (error) {
       if (error.code === 'ENOENT') {

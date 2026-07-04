@@ -13,8 +13,7 @@ crawler/   Seed and staging pipeline for future crawling automation
 ## Local Preview
 
 ```powershell
-cd web
-node server.js
+node scripts/local-preview-server.mjs
 ```
 
 Then open:
@@ -33,6 +32,9 @@ Root Directory: web
 Build Command: leave empty
 Output Directory: .
 ```
+
+The repository also includes `vercel.json`, so it can still serve the `web`
+static app if Vercel is imported with the repository root as the root directory.
 
 ## Future Crawling Plan
 

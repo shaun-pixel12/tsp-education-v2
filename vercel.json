@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/app.js", "destination": "/web/app.js" },
+    { "source": "/ai-engine.js", "destination": "/web/ai-engine.js" },
+    { "source": "/sample-courses.js", "destination": "/web/sample-courses.js" },
+    { "source": "/styles.css", "destination": "/web/styles.css" },
+    { "source": "/chip_icon.png", "destination": "/web/chip_icon.png" },
+    { "source": "/chip_icon.jpg", "destination": "/web/chip_icon.jpg" },
+    { "source": "/", "destination": "/web/index.html" },
+    { "source": "/(.*)", "destination": "/web/index.html" }
+  ]
+}
