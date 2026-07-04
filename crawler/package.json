@@ -1,0 +1,13 @@
+{
+  "name": "semiconductor-education-scraper",
+  "version": "1.0.0",
+  "description": "Scrapes and stages semiconductor PKG education datasets.",
+  "main": "scraper.js",
+  "type": "module",
+  "scripts": {
+    "start": "node scraper.js"
+  },
+  "dependencies": {
+    "playwright": "^1.41.0"
+  }
+}

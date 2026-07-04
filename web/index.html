@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSP-education Search Platform</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <aside id="sidebar">
+    <div class="logo-container">
+      <img class="logo-icon-img" src="./chip_icon.png" alt="">
+      <div class="logo-text">
+        <span class="logo-highlight">TSP-education</span>
+        <span>Search</span>
+        <span>Platform</span>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="menu-list">
+        <li class="menu-item active" data-tab="dashboard" data-title="홈">
+          <span>홈</span>
+        </li>
+        <li class="menu-item" data-tab="explore" data-title="교육 탐색">
+          <span>교육 탐색</span>
+        </li>
+        <li class="menu-item" data-tab="ai-recommender" data-title="AI 맞춤 추천">
+          <span>AI 맞춤 추천</span>
+        </li>
+        <li class="menu-item" data-tab="calendar" data-title="일정 캘린더">
+          <span>일정 캘린더</span>
+        </li>
+        <li class="menu-item" data-tab="site-recommendations" data-title="사이트 추천">
+          <span>사이트 추천</span>
+        </li>
+        <li class="menu-item" data-tab="reviews-qna" data-title="후기 & Q&A">
+          <span>후기 & Q&A</span>
+        </li>
+        <li class="menu-item" data-tab="admin" data-title="관리자">
+          <span>관리자</span>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+  <main>
+    <header>
+      <div class="header-title">
+        <button id="btn-toggle-sidebar" class="btn-toggle-sidebar" type="button" aria-label="사이드바 열기">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <h1 id="page-title">대시보드</h1>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <section id="dashboard" class="tab-content active">
+        <section class="hero-section">
+          <div class="hero-content">
+            <span class="hero-badge">TSP-education Search Platform</span>
+            <h1>후공정 교육과 세미나를 공정, 직무, 역량 기준으로 빠르게 찾습니다</h1>
+            <p class="hero-desc-text">원본 앱의 탐색 경험은 유지하고, 추천 기준은 WLP/Fan-out/PLP, Test/SLT, DMI/FA, 품질·신뢰성, P&T·수율, 장비·제조DX 중심으로 업데이트했습니다.</p>
+            <div class="hero-actions">
+              <button id="btn-hero-cta" class="btn-hero-primary" type="button">AI 맞춤 추천</button>
+              <button id="btn-quick-finder" class="btn-hero-secondary" type="button">빠른 찾기</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="dashboard-grid">
+          <article class="stat-card glass-card" data-stat-tab="explore">
+            <div class="stat-icon-wrapper" style="background:#eff6ff;color:#3b82f6;">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">전체 후보</span>
+              <span id="stat-total-courses" class="stat-value">0</span>
+            </div>
+          </article>
+          <article class="stat-card glass-card" data-stat-region="국내">
+            <div class="stat-icon-wrapper" style="background:#ecfdf5;color:#059669;">
+              <svg viewBox="0 0 24 24"><path d="M4 19V5l8-3 8 3v14M9 22V12h6v10"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">국내 교육/행사</span>
+              <span id="stat-domestic-courses" class="stat-value">0</span>
+            </div>
+          </article>
+          <article class="stat-card glass-card" data-stat-region="해외">
+            <div class="stat-icon-wrapper" style="background:#f5f3ff;color:#8b5cf6;">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM2 12h20M12 2c3 3 3 17 0 20M12 2c-3 3-3 17 0 20"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">해외 교육/행사</span>
+              <span id="stat-global-courses" class="stat-value">0</span>
+            </div>
+          </article>
+          <article class="stat-card glass-card" data-stat-type="세미나/컨퍼런스">
+            <div class="stat-icon-wrapper" style="background:#fffbeb;color:#d97706;">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v12H4zM8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">세미나/컨퍼런스</span>
+              <span id="stat-seminar-count" class="stat-value">0</span>
+            </div>
+          </article>
+        </div>
+
+        <section class="section-block">
+          <div class="section-heading">
+            <h2>주요 운영처 바로가기</h2>
+            <p>원본 앱의 빠른 링크 영역입니다. 크롤링 우선순위가 높은 운영처를 먼저 보여줍니다.</p>
+          </div>
+          <div id="home-platform-links-grid" class="home-platform-links-grid"></div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-heading">
+            <h2>Hot Topics</h2>
+            <p>태그를 누르면 관련 교육 목록으로 바로 이동합니다.</p>
+          </div>
+          <div id="trend-topics" class="trend-topics"></div>
+        </section>
+
+        <div class="dashboard-sections section-block">
+          <section class="glass-card">
+            <div class="section-heading">
+              <h2>우선 추천 후보</h2>
+              <p>후공정 관련성이 높아 먼저 살펴볼 만한 교육/행사입니다.</p>
+            </div>
+            <div id="featured-courses-grid" class="courses-grid"></div>
+          </section>
+
+          <section class="glass-card">
+            <div class="section-heading">
+              <h2>저장한 항목</h2>
+              <p>관심 교육을 저장하면 여기에 모입니다.</p>
+            </div>
+            <div id="bookmark-courses-grid" class="courses-grid"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="explore" class="tab-content">
+        <div class="filters-bar">
+          <div class="search-input-wrapper">
+            <input id="search-input" type="search" placeholder="예: WLP, FA, ATE, 신뢰성, 한국어">
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">지역</span>
+            <div class="btn-group">
+              <button class="btn-filter active" type="button" data-region="전체">전체</button>
+              <button class="btn-filter" type="button" data-region="국내">국내</button>
+              <button class="btn-filter" type="button" data-region="해외">해외</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">형태</span>
+            <div class="btn-group">
+              <button class="btn-filter active" type="button" data-type="전체">전체</button>
+              <button class="btn-filter" type="button" data-type="교육">교육</button>
+              <button class="btn-filter" type="button" data-type="세미나/컨퍼런스">세미나</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">난이도</span>
+            <div class="btn-group">
+              <button class="btn-filter active" type="button" data-level="전체">전체</button>
+              <button class="btn-filter" type="button" data-level="초급">초급</button>
+              <button class="btn-filter" type="button" data-level="중급">중급</button>
+              <button class="btn-filter" type="button" data-level="고급">고급</button>
+            </div>
+          </div>
+          <strong id="explore-count">0개</strong>
+        </div>
+        <div id="courses-grid" class="courses-grid"></div>
+      </section>
+
+      <section id="ai-recommender" class="tab-content">
+        <form id="recommender-form" class="recommendation-form-card glass-card">
+          <div class="form-group">
+            <label for="recommender-role">직무/역량 축</label>
+            <select id="recommender-role" class="form-control"></select>
+          </div>
+          <div class="form-group">
+            <label for="recommender-keywords">관심 키워드</label>
+            <input id="recommender-keywords" class="form-control" type="text" placeholder="예: fan-out, RDL, 결함분석, SLT">
+          </div>
+          <div class="form-group inline-options">
+            <span class="filter-label">지역</span>
+            <label><input type="radio" name="recommender-region" value="전체" checked> 전체</label>
+            <label><input type="radio" name="recommender-region" value="국내"> 국내</label>
+            <label><input type="radio" name="recommender-region" value="해외"> 해외</label>
+          </div>
+          <div class="form-group inline-options">
+            <span class="filter-label">형태</span>
+            <label><input type="radio" name="recommender-type" value="전체" checked> 전체</label>
+            <label><input type="radio" name="recommender-type" value="교육"> 교육</label>
+            <label><input type="radio" name="recommender-type" value="세미나/컨퍼런스"> 세미나</label>
+          </div>
+          <button class="btn-submit" type="submit">추천받기</button>
+        </form>
+
+        <div class="recommendation-results-header">
+          <h2>추천 결과</h2>
+          <p id="recommendation-count">조건을 입력하고 추천받기를 눌러주세요.</p>
+        </div>
+        <div id="recommendation-results" class="courses-grid"></div>
+      </section>
+
+      <section id="calendar" class="tab-content">
+        <div class="calendar-header-section">
+          <div class="calendar-nav">
+            <button id="calendar-prev" class="btn-nav-cal" type="button">‹</button>
+            <h2 id="calendar-month-title" class="calendar-month-title">2026년 7월</h2>
+            <button id="calendar-next" class="btn-nav-cal" type="button">›</button>
+          </div>
+          <div class="btn-group">
+            <button id="cal-filter-all" class="btn-filter active" type="button">전체</button>
+            <button id="cal-filter-domestic" class="btn-filter" type="button">국내</button>
+            <button id="cal-filter-global" class="btn-filter" type="button">해외</button>
+          </div>
+        </div>
+        <div class="calendar-wrapper">
+          <div id="calendar-grid" class="calendar-grid"></div>
+        </div>
+      </section>
+
+      <section id="site-recommendations" class="tab-content">
+        <section class="glass-card">
+          <div class="section-heading">
+            <h2>추천 크롤링 사이트</h2>
+            <p>조사본에서 뽑은 기본 운영처와 링크입니다.</p>
+          </div>
+          <div id="default-sites-grid" class="site-cards-grid"></div>
+        </section>
+
+        <form id="site-form" class="recommendation-form-card glass-card section-block">
+          <h2>사용자 사이트 추가</h2>
+          <div class="form-group">
+            <label for="site-name">사이트명</label>
+            <input id="site-name" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label for="site-url">URL</label>
+            <input id="site-url" class="form-control" type="url">
+          </div>
+          <div class="form-group">
+            <label for="site-category">분류</label>
+            <input id="site-category" class="form-control" type="text" placeholder="예: 국내 교육, 글로벌 학회">
+          </div>
+          <div class="form-group">
+            <label for="site-notes">메모</label>
+            <textarea id="site-notes" class="form-control" rows="3"></textarea>
+          </div>
+          <button class="btn-submit" type="submit">링크 추가</button>
+        </form>
+
+        <section class="glass-card section-block">
+          <div class="section-heading">
+            <h2>추가한 링크</h2>
+          </div>
+          <div id="custom-sites-grid" class="site-cards-grid"></div>
+        </section>
+      </section>
+
+      <section id="reviews-qna" class="tab-content">
+        <div class="qna-reviews-layout">
+          <section class="glass-card">
+            <h2>교육 후기</h2>
+            <form id="review-form">
+              <div class="form-group">
+                <label for="review-course">교육/행사</label>
+                <select id="review-course" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="review-rating">평점</label>
+                <select id="review-rating" class="form-control">
+                  <option value="5">★★★★★</option>
+                  <option value="4">★★★★☆</option>
+                  <option value="3">★★★☆☆</option>
+                  <option value="2">★★☆☆☆</option>
+                  <option value="1">★☆☆☆☆</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="review-text">후기</label>
+                <textarea id="review-text" class="form-control" rows="4"></textarea>
+              </div>
+              <button class="btn-submit" type="submit">후기 저장</button>
+            </form>
+            <div id="review-list" class="list-stack"></div>
+          </section>
+
+          <section class="glass-card">
+            <h2>Q&A</h2>
+            <form id="qna-form">
+              <div class="form-group">
+                <label for="qna-title">질문</label>
+                <input id="qna-title" class="form-control" type="text">
+              </div>
+              <div class="form-group">
+                <label for="qna-text">내용</label>
+                <textarea id="qna-text" class="form-control" rows="4"></textarea>
+              </div>
+              <button class="btn-submit" type="submit">질문 저장</button>
+            </form>
+            <div id="qna-list" class="list-stack"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="admin" class="tab-content">
+        <section class="glass-card">
+          <h2>크롤링 Staging 반영</h2>
+          <p class="muted-text">JSON 파일을 드래그하거나 내용을 붙여넣어 새 교육/행사 후보를 추가할 수 있습니다.</p>
+          <div id="admin-dropzone" class="admin-dropzone">
+            <strong>staging_courses.json 파일을 여기에 놓기</strong>
+            <p class="muted-text">클릭해서 파일을 선택할 수도 있습니다.</p>
+          </div>
+          <input id="admin-file-input" type="file" accept=".json,application/json" hidden>
+          <textarea id="admin-json-input" class="admin-json-textarea section-block" rows="12" placeholder='[{"id":"example","title":"...","url":"..."}]'></textarea>
+          <div class="admin-actions">
+            <button id="admin-parse-btn" class="btn-primary" type="button">반영</button>
+            <button id="admin-load-current-btn" class="btn-secondary" type="button">현재 staging 불러오기</button>
+            <button id="admin-reset-btn" class="btn-secondary" type="button">기본 seed로 초기화</button>
+          </div>
+          <p id="admin-status" class="muted-text"></p>
+        </section>
+
+        <section class="glass-card section-block">
+          <div class="section-heading">
+            <h2>Staging 미리보기</h2>
+          </div>
+          <div id="staging-preview" class="staging-table-container"></div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <div id="course-modal" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div>
+          <div id="modal-badges" class="badge-container"></div>
+          <h2 id="modal-title">교육 상세</h2>
+        </div>
+        <button id="modal-close" class="modal-close-btn" type="button">닫기</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-meta" class="modal-meta"></div>
+        <h3 class="modal-section-title">설명</h3>
+        <p id="modal-description"></p>
+        <h3 class="modal-section-title">키워드</h3>
+        <div id="modal-topics" class="course-topics"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-bookmark" class="btn-secondary" type="button">저장</button>
+        <a id="modal-link" class="btn-primary" href="#" target="_blank" rel="noopener">원문 열기</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="quick-finder-modal" class="modal-overlay">
+    <div class="modal-window modal-large">
+      <div class="modal-header">
+        <div>
+          <span class="hero-badge">Quick Finder</span>
+          <h2>나에게 맞는 교육 빠르게 찾기</h2>
+          <p id="quick-step-label" class="muted-text">1단계: 직무/역량 축 선택</p>
+        </div>
+        <button id="quick-close" class="modal-close-btn" type="button">닫기</button>
+      </div>
+      <div class="modal-body">
+        <section id="quick-step-role" class="quick-step">
+          <h3 class="modal-section-title">직무/역량 축</h3>
+          <div id="quick-role-options" class="wizard-grid"></div>
+        </section>
+
+        <section id="quick-step-focus" class="quick-step hidden">
+          <h3 class="modal-section-title">관심 조건</h3>
+          <div class="wizard-grid">
+            <button class="wizard-option-btn" type="button" data-focus="국내 교육">국내 교육</button>
+            <button class="wizard-option-btn" type="button" data-focus="온라인">온라인/온디맨드</button>
+            <button class="wizard-option-btn" type="button" data-focus="세미나/컨퍼런스">세미나/컨퍼런스</button>
+            <button class="wizard-option-btn" type="button" data-focus="WLP Fan-out PLP">WLP/Fan-out/PLP</button>
+            <button class="wizard-option-btn" type="button" data-focus="ATE SLT Test">ATE/SLT/Test</button>
+            <button class="wizard-option-btn" type="button" data-focus="DMI FA 결함분석">DMI/FA/결함분석</button>
+            <button class="wizard-option-btn" type="button" data-focus="신뢰성 품질 Qualification">품질/신뢰성</button>
+            <button class="wizard-option-btn" type="button" data-focus="장비 자동화 제조DX">장비/제조DX</button>
+          </div>
+        </section>
+
+        <section id="quick-step-results" class="quick-step hidden">
+          <h3 class="modal-section-title">추천 결과</h3>
+          <div id="quick-finder-results" class="quick-results"></div>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button id="quick-prev" class="btn-secondary" type="button">이전</button>
+        <button id="quick-next" class="btn-primary" type="button">다음</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
